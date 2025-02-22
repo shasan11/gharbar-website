@@ -12,7 +12,8 @@ export const fetchConfig = () => async (dispatch) => {
   dispatch({ type: FETCH_CONFIG_REQUEST });
 
   try {
-    const response = await axios.get(import.meta.VITE_APP_BACKEND_URL+'/config'); 
+    const response = await axios.get(import.meta.env.VITE_APP_BACKEND_URL+'/config'); 
+    console.log("Config COre",response);
     dispatch({
       type: FETCH_CONFIG_SUCCESS,
       payload: response.data, 

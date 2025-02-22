@@ -1,1 +1,19 @@
- 
+.main-banner-image {
+    width: 100%; /* Make sure the image takes full width */
+    height: 200px; /* Default height for mobile */
+    object-fit: cover; /* Ensure the image covers the container */
+}
+
+/* Tablet: Height 300px */
+@media (min-width: 768px) {
+    .main-banner-image {
+        height: 300px;
+    }
+}
+
+/* Desktop: Height 500px */
+@media (min-width: 1024px) {
+    .main-banner-image {
+        height: 600px;
+    }
+}

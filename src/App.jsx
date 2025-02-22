@@ -1,67 +1,37 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchLatestProducts,
-  fetchDiscountedProducts,
-  fetchNewArrivalProducts,
-} from './actions/productActions';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import RouteScrollToTop from "./helper/RouteScrollToTop";
+import HomePageOne from "./pages/HomePageOne";
+import PhosphorIconInit from "./helper/PhosphorIconInit";
+import ShopPage from "./pages/ShopPage";
+import ProductDetailsPageOne from "./pages/ProductDetailsPageOne";
+import CartPage from "./pages/CartPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import AccountPage from "./pages/AccountPage";
+import ContactPage from "./pages/ContactPage";
+import './App.css';
+import "bootstrap/dist/js/bootstrap.bundle.min";
+import 'select2/dist/js/select2.min.js';
+import "./index.scss";
 
-const App = () => {
-  const dispatch = useDispatch();
-
-  const {
-    latestProducts,
-    discountedProducts,
-    newArrivalProducts,
-    loading,
-    error,
-  } = useSelector((state) => state.products);
-
-  useEffect(() => {
-    dispatch(fetchLatestProducts());
-    dispatch(fetchDiscountedProducts());
-    dispatch(fetchNewArrivalProducts());
-  }, [dispatch]);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
+function App() {
   return (
-    <div>
-      <h1>Latest Products</h1>
-      <ul>
-        {latestProducts && latestProducts.length > 0 ? (
-          latestProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))
-        ) : (
-          <li>No latest products available.</li>
-        )}
-      </ul>
+    <BrowserRouter>
+      <RouteScrollToTop />
+      <PhosphorIconInit />
 
-      <h1>Discounted Products</h1>
-      <ul>
-        {discountedProducts && discountedProducts.length > 0 ? (
-          discountedProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))
-        ) : (
-          <li>No discounted products available.</li>
-        )}
-      </ul>
+      <Routes>
+        <Route exact path="/" element={<HomePageOne />} />
+        <Route exact path="/shop" element={<ShopPage />} />
+        <Route exact path="/product-details" element={<ProductDetailsPageOne />} />
+        <Route exact path="/cart" element={<CartPage />} />
+        <Route exact path="/checkout" element={<CheckoutPage />} />
+        <Route exact path="/account" element={<AccountPage />} />
+        <Route exact path="/contact" element={<ContactPage />} />
+        <Route exact path="*" element={<HomePageOne />} />
 
-      <h1>New Arrival Products</h1>
-      <ul>
-        {newArrivalProducts && newArrivalProducts.length > 0 ? (
-          newArrivalProducts.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))
-        ) : (
-          <li>No new arrival products available.</li>
-        )}
-      </ul>
-    </div>
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
 export default App;
